@@ -9,8 +9,8 @@ import java.io.*;
  */
 public class AddPerson {
 
-    // This function fills in a Person message based on user input.
-    static AddressBookProtos.Person PromptForAddress(BufferedReader stdin,
+    // 通过用户输入构建一个Person对象
+    static AddressBookProtos.Person promptForAddress(BufferedReader stdin,
                                                      PrintStream stdout) throws IOException {
         AddressBookProtos.Person.Builder person = AddressBookProtos.Person.newBuilder();
 
@@ -54,9 +54,7 @@ public class AddPerson {
         return person.build();
     }
 
-    // Main function:  Reads the entire address book from a file,
-    //   adds one person based on user input, then writes it back out to the same
-    //   file.
+    // 加载指定的序列化文件（如不存在则创建一个新的），再通过用户输入增加一个新的联系人到地址簿，最后序列化到文件中
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
             System.err.println("Usage:  AddPerson ADDRESS_BOOK_FILE");
@@ -73,8 +71,7 @@ public class AddPerson {
         }
 
         // Add an address.
-        addressBook.addPeople(
-                PromptForAddress(new BufferedReader(new InputStreamReader(System.in)),
+        addressBook.addPeople(promptForAddress(new BufferedReader(new InputStreamReader(System.in)),
                         System.out));
 
         // Write the new address book back to disk.
@@ -82,5 +79,4 @@ public class AddPerson {
         addressBook.build().writeTo(output);
         output.close();
     }
-
 }

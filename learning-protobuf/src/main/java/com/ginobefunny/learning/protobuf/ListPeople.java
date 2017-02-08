@@ -9,8 +9,8 @@ import java.io.FileInputStream;
  */
 public class ListPeople {
 
-    // Iterates though all people in the AddressBook and prints info about them.
-    static void Print(AddressBookProtos.AddressBook addressBook) {
+    // 打印地址簿中所有联系人信息
+    static void print(AddressBookProtos.AddressBook addressBook) {
         for (AddressBookProtos.Person person: addressBook.getPeopleList()) {
             System.out.println("Person ID: " + person.getId());
             System.out.println("  Name: " + person.getName());
@@ -35,8 +35,7 @@ public class ListPeople {
         }
     }
 
-    // Main function:  Reads the entire address book from a file and prints all
-    //   the information inside.
+    // 加载指定的序列化文件，并输出所有联系人信息
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
             System.err.println("Usage:  ListPeople ADDRESS_BOOK_FILE");
@@ -47,7 +46,6 @@ public class ListPeople {
         AddressBookProtos.AddressBook addressBook =
                 AddressBookProtos.AddressBook.parseFrom(new FileInputStream(args[0]));
 
-        Print(addressBook);
+        print(addressBook);
     }
-
 }
