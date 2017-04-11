@@ -12,12 +12,45 @@ public final class ActicleFetcher {
         List<String> contentList = new ArrayList<String>();
         List<String> contentDataList = JDBCUtils.getAllContentData();
         String temp;
+        int validCount = 0, invalidCount = 0;
         for (String contentData : contentDataList) {
             if ((temp = ContentParser.parse(contentData)) != null) {
                 contentList.add(temp);
+                validCount++;
+            } else {
+                invalidCount++;
             }
         }
 
+        System.out.println("[Fetch Result][valid=" + validCount + "][invalid=" + invalidCount + "]");
+        return contentList;
+    }
+
+    public static List<String> fetchAllContentsFromYOHO() throws Exception {
+        List<String> contentList = new ArrayList<String>();
+        List<String> contentDataList = JDBCUtils.getAllBoysContentDetail();
+        String temp;
+        int validCount = 0, invalidCount = 0;
+        for (String contentData : contentDataList) {
+            if ((temp = ContentParser.parseForHtml(contentData)) != null) {
+                contentList.add(temp);
+                validCount++;
+            } else {
+                invalidCount++;
+            }
+        }
+
+        contentDataList = JDBCUtils.getAllGirlsContentDetail();
+        for (String contentData : contentDataList) {
+            if ((temp = ContentParser.parseForHtml(contentData)) != null) {
+                contentList.add(temp);
+                validCount++;
+            } else {
+                invalidCount++;
+            }
+        }
+
+        System.out.println("[Fetch Result][valid=" + validCount + "][invalid=" + invalidCount + "]");
         return contentList;
     }
 

@@ -9,7 +9,6 @@ import java.util.List;
  */
 public final class JDBCUtils {
 
-    //private static final String DB_URL = "jdbc:mysql://192.168.102.219:3306/yh_guang?user=yh_test&password=yh_test&useUnicode=true&characterEncoding=UTF8";
     private static final String DB_URL = "jdbc:mysql://localhost:3306/w2v_article?user=w2v&password=w2v&useUnicode=true&characterEncoding=UTF8";
 
     public static List<String> getAllContentData() throws Exception{
@@ -25,6 +24,48 @@ public final class JDBCUtils {
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 list.add(rs.getString("content_data"));
+            }
+        } finally {
+            closeQuietly(conn, stmt, rs);
+        }
+
+        return list;
+    }
+
+    public static List<String> getAllBoysContentDetail() throws Exception{
+        List<String> list = new ArrayList<String>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL);
+            stmt = conn.createStatement();
+            String sql = "SELECT simplified FROM tbl_content_detail";
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                list.add(rs.getString("simplified"));
+            }
+        } finally {
+            closeQuietly(conn, stmt, rs);
+        }
+
+        return list;
+    }
+
+    public static List<String> getAllGirlsContentDetail() throws Exception{
+        List<String> list = new ArrayList<String>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL);
+            stmt = conn.createStatement();
+            String sql = "SELECT simplified FROM tbl_content_detailgirl";
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                list.add(rs.getString("simplified"));
             }
         } finally {
             closeQuietly(conn, stmt, rs);
