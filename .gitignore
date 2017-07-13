@@ -3,3 +3,8 @@
 */out/
 *.iml
 .idea/
+learning-spi/demo-spi-api/target/
+learning-spi/demo-spi-app/target/
+learning-spi/demo-spi-multiply/target/
+learning-spi/demo-spi-replace/target/
+learning-spi/demo-spi-search/target/
